@@ -1,35 +1,37 @@
+# Stock Dashboard
 
-# 실시간(자동갱신) 미국주식 포트폴리오 웹 대시보드
+개인용 미국주식 포트폴리오 모바일 웹 대시보드입니다.
 
-## 가장 쉬운 실행 방법 (Windows)
-1. Python 3.11 이상 설치
-2. 이 폴더의 `run_windows.bat` 더블클릭
-3. 자동으로 브라우저가 열리며 대시보드 표시
+## 현재 구성
+- 현재가
+- 당일 등락률 및 상승/하락 표시
+- 보유수량 기준 평가금액
+- 52주 고점 대비 하락률
+- 평균매입가 입력 시 매수가 대비 수익률 및 전체 손익
+- 모바일 다크모드
 
-## 직접 실행
-```bash
-pip install -r requirements.txt
-streamlit run app.py
-```
+## 1. GitHub에 올리기
+이 ZIP을 압축 해제한 뒤 `index.html`, `style.css`, `app.js`, `README.md` 네 파일을
+GitHub의 `k9200596-cell/Stock` 저장소 최상위(root)에 업로드합니다.
 
-## 기본 보유 종목
-- IREN 610주
-- RKLB 128주
-- INFQ 192주
-- DRAM 66주
+GitHub 저장소 화면:
+1. Add file
+2. Upload files
+3. 네 파일 선택
+4. Commit changes
 
-화면 왼쪽 사이드바에서 종목/수량/매입원가를 직접 수정할 수 있습니다.
+## 2. GitHub Pages 켜기
+저장소에서:
+Settings → Pages → Build and deployment → Source: Deploy from a branch
+→ Branch: main / (root) → Save
 
-## 주요 기능
-- 현재가 자동 갱신 (30/60/120/300초)
-- 전일 대비 등락률
-- 52주 최고가 대비 현재 위치
-- 역대 최고가(ATH) 대비 현재 위치
-- 원화 평가액 / 평가손익 / 수익률
-- 포트폴리오 비중
-- 고점 대비 낙폭 차트
-- 환율 직접 조정
+잠시 후 Pages 주소가 표시됩니다.
 
-## 주의
-Yahoo Finance 데이터는 종목/거래소에 따라 실시간 또는 지연일 수 있습니다.
-초단위 완전 실시간 시세는 증권사 API 또는 유료 데이터 API 연결이 필요합니다.
+## 3. 평균매입가 입력
+`app.js` 상단의 `portfolio`에서 `avg: 0`을 실제 달러 기준 평균매입가로 바꾸면
+매수가 대비 수익률, 총손익, 총수익률이 자동 계산됩니다.
+
+## 중요
+현재 시세 조회는 Yahoo Finance 공개 chart endpoint를 사용하는 개인용 프로토타입입니다.
+공식 실시간 시세 API가 아니며 지연, 호출 제한, CORS 정책 변경 가능성이 있습니다.
+장기적으로 안정적인 운영을 원하면 금융 데이터 API + 서버리스 프록시 방식으로 전환하세요.
